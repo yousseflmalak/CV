@@ -49,12 +49,19 @@ window.TRAINING_DATA = [
 ];
 
 window.TOOLKIT_DATA = [
-    { tcode: "EDOC_COCKPIT", desc: "The main dashboard for monitoring and submitting electronic documents across all jurisdictions.", icon: "layout" },
-    { tcode: "/AIF/CONTENT_EXTRACT", desc: "Technical tool for extracting data mapping from the AIF framework.", icon: "file-cog" },
-    { tcode: "SM30 (V_EDO_SUB_TYPE)", desc: "Maintain eDocument types and assign them to accounting document types.", icon: "settings-2" },
-    { tcode: "SR_REPORT_ENTITY", desc: "The engine for defining statutory reporting entities and periodicity.", icon: "clipboard-list" },
-    { tcode: "STRUST", desc: "Trust Manager for managing SSL certificates required for secure BTP communication.", icon: "shield-check" },
-    { tcode: "S_EDO_CERT_REG", desc: "Specific registration for digital signatures used in e-invoicing.", icon: "pen-tool" }
+    { tcode: "EDOC_COCKPIT", desc: "The main dashboard for monitoring and submitting electronic documents across all jurisdictions.", icon: "layout", category: "Technical" },
+    { tcode: "/AIF/CONTENT_EXTRACT", desc: "Technical tool for extracting data mapping from the AIF framework.", icon: "file-cog", category: "Technical" },
+    { tcode: "SM30 (V_EDO_SUB_TYPE)", desc: "Maintain eDocument types and assign them to accounting document types.", icon: "settings-2", category: "Technical" },
+    { tcode: "SR_REPORT_ENTITY", desc: "The engine for defining statutory reporting entities and periodicity.", icon: "clipboard-list", category: "Technical" },
+    { tcode: "STRUST", desc: "Trust Manager for managing SSL certificates required for secure BTP communication.", icon: "shield-check", category: "Technical" },
+    { tcode: "S_EDO_CERT_REG", desc: "Specific registration for digital signatures used in e-invoicing.", icon: "pen-tool", category: "Technical" },
+    {
+        tcode: "PROFESSIONAL_CV", desc: "Optimized SAP DRC Architect CV. Ready for high-tier recruitment.", icon: "file-text", category: "Career", type: "CV", links: [
+            { label: "Word Version", path: "brain/980c05d9-1a33-48c2-acd3-8ab111c30700/Youssef_Lmalak_SAP_DRC_CV.doc" },
+            { label: "Markdown Source", path: "brain/980c05d9-1a33-48c2-acd3-8ab111c30700/optimized_cv_drc.md" }
+        ]
+    },
+    { tcode: "LINKEDIN_STRATEGY", desc: "Optimized profile overview focusing on BTP, KSeF, and ViDA.", icon: "linkedin", category: "Career", type: "LinkedIn", detail: "Heading: Lead SAP DRC Architect | BTP Integration | KSeF & ViDA Expert | Global E-Invoicing Compliance" }
 ];
 
 window.PROJECT_DATA = [
