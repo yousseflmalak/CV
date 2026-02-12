@@ -111,22 +111,37 @@
             const trainingData = window.TRAINING_DATA || [{ title: 'Loading...', content: '' }];
             const toolkitData = window.TOOLKIT_DATA || [];
 
+            const handleTabChange = (tab) => {
+                if (tab === 'journal' && activeTab === 'journal') {
+                    setSelectedProject(null);
+                    setSearchQuery('');
+                }
+                setActiveTab(tab);
+            };
+
             return (
                 <div className="flex h-screen bg-slate-950">
                     {/* Sidebar */}
                     <aside className="w-72 glass bg-slate-900 h-full flex flex-col">
-                        <div className="p-8 border-b border-white/10">
-                            <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
+                        <div
+                            className="p-8 border-b border-white/10 cursor-pointer hover:bg-white/5 transition-all group"
+                            onClick={() => {
+                                setActiveTab('dashboard');
+                                setSelectedProject(null);
+                                setSearchQuery('');
+                            }}
+                        >
+                            <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent group-hover:from-blue-300 group-hover:to-indigo-400">
                                 SAP DRC Hub
                             </h1>
                             <p className="text-[10px] text-gray-500 mt-1 uppercase tracking-widest font-black">Knowledge Engine</p>
                         </div>
                         <nav className="flex-1 mt-4">
-                            <SidebarItem id="dashboard" label="Dashboard" icon="layout-dashboard" activeTab={activeTab} onClick={setActiveTab} />
-                            <SidebarItem id="training" label="Training Sessions" icon="graduation-cap" activeTab={activeTab} onClick={setActiveTab} />
-                            <SidebarItem id="journal" label="Project Journal" icon="book-open" activeTab={activeTab} onClick={setActiveTab} />
-                            <SidebarItem id="certification" label="Cert Prep" icon="award" activeTab={activeTab} onClick={setActiveTab} />
-                            <SidebarItem id="toolkit" label="Project Toolkit" icon="wrench" activeTab={activeTab} onClick={setActiveTab} />
+                            <SidebarItem id="dashboard" label="Dashboard" icon="layout-dashboard" activeTab={activeTab} onClick={handleTabChange} />
+                            <SidebarItem id="training" label="Training Sessions" icon="graduation-cap" activeTab={activeTab} onClick={handleTabChange} />
+                            <SidebarItem id="journal" label="Project Journal" icon="book-open" activeTab={activeTab} onClick={handleTabChange} />
+                            <SidebarItem id="certification" label="Cert Prep" icon="award" activeTab={activeTab} onClick={handleTabChange} />
+                            <SidebarItem id="toolkit" label="Project Toolkit" icon="wrench" activeTab={activeTab} onClick={handleTabChange} />
                         </nav>
                         <div className="p-6 border-t border-white/10">
                             <div className="flex items-center gap-3 glass p-3 rounded-xl">
@@ -203,15 +218,16 @@
                                 <div className="max-w-4xl mx-auto">
                                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                                         <div>
+                                            {selectedProject && (
+                                                <button
+                                                    onClick={() => setSelectedProject(null)}
+                                                    className="flex items-center gap-2 mb-6 px-4 py-2 bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/20 rounded-xl text-xs font-black uppercase tracking-widest text-blue-400 transition-all w-fit group"
+                                                >
+                                                    <Icon name="arrow-left" className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+                                                    Back to Project Selection
+                                                </button>
+                                            )}
                                             <div className="flex items-center gap-3 mb-2">
-                                                {selectedProject && (
-                                                    <button
-                                                        onClick={() => setSelectedProject(null)}
-                                                        className="flex items-center gap-2 px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition-all mr-4"
-                                                    >
-                                                        <Icon name="arrow-left" className="w-3.5 h-3.5" /> Back to Projects
-                                                    </button>
-                                                )}
                                                 <h2 className="text-3xl font-black text-white">
                                                     {selectedProject || "Project Journal"}
                                                 </h2>
