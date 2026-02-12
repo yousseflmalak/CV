@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,16 +13,51 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f1f5f9; }
-        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .sidebar-active { background: linear-gradient(90deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0) 100%); border-left: 4px solid #3b82f6; }
-        .category-pill { background: rgba(59, 130, 246, 0.1); color: #60a5fa; padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-active {
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0) 100%);
+            border-left: 4px solid #3b82f6;
+        }
+
+        .category-pill {
+            background: rgba(59, 130, 246, 0.1);
+            color: #60a5fa;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
     </style>
 </head>
+
 <body class="h-screen overflow-hidden">
     <div id="root"></div>
 
@@ -164,30 +200,69 @@
                             {activeTab === 'dashboard' && (
                                 <div className="max-w-6xl mx-auto">
                                     <div className="mb-12">
-                                        <h2 className="text-3xl font-black mb-2">Knowledge Overview</h2>
-                                        <p className="text-gray-500">Global compliance status and personal milestones</p>
+                                        <h2 className="text-3xl font-black mb-2 text-white">Knowledge & Project Hub</h2>
+                                        <p className="text-gray-500">Live tracker for your DRC expertise and active client engagements</p>
                                     </div>
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                                        <div className="bg-gradient-to-br from-blue-600 to-indigo-800 p-10 rounded-[2.5rem] shadow-2xl shadow-blue-500/20 relative overflow-hidden group">
-                                            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 group-hover:scale-125 transition-transform duration-700"></div>
-                                            <p className="text-blue-100 text-[10px] uppercase tracking-[0.2em] font-black mb-4">DRC Mastery</p>
-                                            <h4 className="text-5xl font-black text-white">45%</h4>
+
+                                    {/* Progress Cards */}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                                        <div className="bg-gradient-to-br from-blue-600 to-indigo-800 p-8 rounded-[2rem] shadow-2xl shadow-blue-500/20 relative overflow-hidden group">
+                                            <p className="text-blue-100 text-[10px] uppercase tracking-[0.2em] font-black mb-4">Training Progress</p>
+                                            <h4 className="text-4xl font-black text-white">{window.PROGRESS_DATA.training}%</h4>
                                             <div className="w-full h-1.5 bg-black/20 mt-6 rounded-full overflow-hidden">
-                                                <div className="w-[45%] h-full bg-white rounded-full"></div>
+                                                <div className="w-[45%] h-full bg-white rounded-full" style={{ width: `${window.PROGRESS_DATA.training}%` }}></div>
                                             </div>
                                         </div>
-                                        <div className="glass p-10 rounded-[2.5rem] border-white/5 bg-slate-900/50">
-                                            <p className="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-black mb-4">Global Reach</p>
-                                            <h4 className="text-5xl font-black text-white">12</h4>
-                                            <p className="text-gray-400 mt-2 font-medium">Active Mandates</p>
+                                        
+                                        <div className="glass p-8 rounded-[2rem] border-white/5 bg-slate-900/50">
+                                            <p className="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-black mb-4">Cert Roadmap</p>
+                                            <h4 className="text-4xl font-black text-white">{window.PROGRESS_DATA.certification}%</h4>
+                                            <div className="w-full h-1.5 bg-white/5 mt-6 rounded-full overflow-hidden">
+                                                <div className="w-[20%] h-full bg-blue-500 rounded-full" style={{ width: `${window.PROGRESS_DATA.certification}%` }}></div>
+                                            </div>
                                         </div>
-                                        <div className="glass p-10 rounded-[2.5rem] border-yellow-500/10 bg-yellow-500/[0.03]">
-                                            <p className="text-yellow-600/80 text-[10px] uppercase tracking-[0.2em] font-black mb-4">Upcoming Exam</p>
-                                            <h4 className="text-3xl font-black text-white">S4F08</h4>
-                                            <p className="text-[10px] text-yellow-500 mt-3 uppercase font-black bg-yellow-500/10 px-3 py-1.5 rounded-full inline-block">March 2026 Target</p>
+
+                                        <div className="glass p-8 rounded-[2rem] border-yellow-500/10 bg-yellow-500/[0.03]">
+                                            <p className="text-yellow-600/80 text-[10px] uppercase tracking-[0.2em] font-black mb-4">Next Target</p>
+                                            <h4 className="text-xl font-black text-white">{window.PROGRESS_DATA.examTarget}</h4>
+                                            <p className="text-[10px] text-yellow-500 mt-3 uppercase font-black bg-yellow-500/10 px-3 py-1.5 rounded-full inline-block">{window.PROGRESS_DATA.examDate}</p>
+                                        </div>
+
+                                        <div className="glass p-8 rounded-[2rem] border-emerald-500/10 bg-emerald-500/[0.03]">
+                                            <p className="text-emerald-600/80 text-[10px] uppercase tracking-[0.2em] font-black mb-4">Active Projects</p>
+                                            <h4 className="text-4xl font-black text-white">{window.PROJECT_DATA.length}</h4>
+                                            <p className="text-[10px] text-emerald-500 mt-3 uppercase font-black bg-emerald-500/10 px-3 py-1.5 rounded-full inline-block"> Belgium Focus</p>
                                         </div>
                                     </div>
-                                    <h3 className="text-lg font-black mb-8 uppercase tracking-widest text-gray-400">Compliance Real-time Hotspots</h3>
+
+                                    {/* Active Projects Section */}
+                                    <div className="mb-12">
+                                        <h3 className="text-lg font-black mb-6 uppercase tracking-widest text-gray-400">Current Assignments</h3>
+                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-white">
+                                            {window.PROJECT_DATA.map((project, idx) => (
+                                                <div key={idx} className="glass p-8 rounded-[2rem] border-white/5 hover:border-blue-500/30 transition-all flex justify-between items-start bg-slate-900/40">
+                                                    <div>
+                                                        <div className="flex items-center gap-3 mb-2">
+                                                            <h4 className="text-2xl font-bold">{project.name}</h4>
+                                                            <span className="bg-emerald-500/20 text-emerald-400 text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-widest">{project.status}</span>
+                                                        </div>
+                                                        <p className="text-blue-400 text-sm font-medium mb-4">{project.role} • {project.location}</p>
+                                                        <div className="flex gap-2">
+                                                            {project.focus.map((f, i) => (
+                                                                <span key={i} className="bg-slate-800 text-gray-400 text-[10px] px-2 py-1 rounded border border-white/5">{f}</span>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-right">
+                                                        <p className="text-xs text-gray-500 uppercase font-black tracking-widest">Last Update</p>
+                                                        <p className="text-sm font-bold text-gray-400">{project.lastUpdate}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <h3 className="text-lg font-black mb-6 uppercase tracking-widest text-gray-400">Compliance Real-time Hotspots</h3>
                                     <div className="glass overflow-hidden rounded-[2rem] border border-white/5 shadow-2xl">
                                         <table className="w-full text-left text-sm">
                                             <thead className="bg-white/5 text-gray-500 uppercase text-[10px] font-black tracking-widest">
@@ -226,4 +301,5 @@
         root.render(<App />);
     </script>
 </body>
+
 </html>

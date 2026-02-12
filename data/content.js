@@ -56,3 +56,21 @@ window.TOOLKIT_DATA = [
     { tcode: "STRUST", desc: "Trust Manager for managing SSL certificates required for secure BTP communication.", icon: "shield-check" },
     { tcode: "S_EDO_CERT_REG", desc: "Specific registration for digital signatures used in e-invoicing.", icon: "pen-tool" }
 ];
+
+window.PROJECT_DATA = [
+    {
+        name: "InterParking Belgium",
+        status: "Post Go-Live",
+        role: "Lead DRC Architect",
+        location: "Brussels / Remote",
+        focus: ["eInvoicing", "BTP Integration", "Peppol"],
+        lastUpdate: "Feb 2026"
+    }
+];
+
+window.PROGRESS_DATA = {
+    training: 45,
+    certification: 20,
+    examTarget: "S4F08 Implementation",
+    examDate: "March 2026"
+};
