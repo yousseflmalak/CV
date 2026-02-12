@@ -69,8 +69,8 @@ window.PROJECT_DATA = [
 ];
 
 window.PROGRESS_DATA = {
-    training: 45,
-    certification: 20,
+    training: 0,
+    certification: 0,
     examTarget: "S4F08 Implementation",
     examDate: "March 2026"
 };
