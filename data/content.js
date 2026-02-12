@@ -74,3 +74,47 @@ window.PROGRESS_DATA = {
     examTarget: "S4F08 Implementation",
     examDate: "March 2026"
 };
+
+window.JOURNAL_DATA = [
+    {
+        date: "Feb 12, 2026",
+        title: "Extracting Business Partner from eDocument Source Key",
+        project: "InterParking Belgium",
+        content: `
+            <p>This entry outlines the technical logic to navigate from the <strong>EDOC_COCKPIT</strong> to the underlying <strong>Business Partner (BP)</strong> using the 18-character Source Key.</p>
+            
+            <h3 class="text-blue-400 font-bold mt-6 mb-2">1. The Source Key Structure</h3>
+            <p>In FI-based eDocuments, the <code>SOURCE_KEY</code> is a concatenation:</p>
+            <ul class="list-disc ml-6 mb-4">
+                <li><strong>Company Code</strong>: Chars 1-4</li>
+                <li><strong>Document Number</strong>: Chars 5-14</li>
+                <li><strong>Fiscal Year</strong>: Chars 15-18</li>
+            </ul>
+
+            <h3 class="text-blue-400 font-bold mt-6 mb-2">2. Technical Linkage Path</h3>
+            <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 mb-4">
+                <p class="font-mono text-xs">
+                    <span class="text-emerald-400">EDOCUMENT</span> (SOURCE_KEY) <br/>
+                    &nbsp;&nbsp;→ <span class="text-emerald-400">BSEG</span> (Account Type KOART = 'D' or 'K') <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;→ <span class="text-emerald-400">CVI_CUST_LINK</span> (or CVI_VEND_LINK) <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ <span class="text-emerald-400">BUT000</span> (General BP Data)
+                </p>
+            </div>
+
+            <h3 class="text-blue-400 font-bold mt-6 mb-2">3. Strategic SQL Lookup</h3>
+            <pre class="bg-black/40 p-4 rounded-xl text-xs overflow-x-auto border border-white/5">
+SELECT b~partner, b~name_org1
+  FROM edocument AS e
+  INNER JOIN bseg AS s ON s~bukrs = SUBSTRING(e~source_key, 1, 4)
+                      AND s~belnr = SUBSTRING(e~source_key, 5, 10)
+                      AND s~gjahr = SUBSTRING(e~source_key, 15, 4)
+  INNER JOIN cvi_cust_link AS l ON l~customer = s~kunnr
+  INNER JOIN but000 AS b ON b~partner_guid = l~partner_guid
+  WHERE e~source_key = '...' 
+    AND s~koart = 'D'.</pre>
+
+            <h3 class="text-blue-400 font-bold mt-6 mb-2">Validation Tip</h3>
+            <p>Always verify the <code>SOURCE_TYPE</code> in table <strong>EDOCUMENT</strong> first. If it is <code>SD_INVOICE</code>, you must use table <strong>VBRK</strong> instead of <strong>BSEG</strong>.</p>
+        `
+    }
+];
