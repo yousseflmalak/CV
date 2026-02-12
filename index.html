@@ -87,6 +87,8 @@
             const [activeTab, setActiveTab] = useState('training');
             const [activeLesson, setActiveLesson] = useState(0);
             const [searchQuery, setSearchQuery] = useState('');
+            const [selectedProject, setSelectedProject] = useState(null);
+            const [expandedEntry, setExpandedEntry] = useState(null);
 
             // Consolidate Lucide call to App level
             useEffect(() => {
@@ -200,8 +202,22 @@
                                 <div className="max-w-4xl mx-auto">
                                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                                         <div>
-                                            <h2 className="text-3xl font-black mb-2 text-white">Project Journal</h2>
-                                            <p className="text-gray-500">Search technical findings across all projects</p>
+                                            <div className="flex items-center gap-3 mb-2">
+                                                {selectedProject && (
+                                                    <button
+                                                        onClick={() => setSelectedProject(null)}
+                                                        className="p-1 hover:bg-white/5 rounded-lg text-gray-400 hover:text-white transition-all mr-2"
+                                                    >
+                                                        <Icon name="arrow-left" className="w-5 h-5" />
+                                                    </button>
+                                                )}
+                                                <h2 className="text-3xl font-black text-white">
+                                                    {selectedProject || "Project Journal"}
+                                                </h2>
+                                            </div>
+                                            <p className="text-gray-500">
+                                                {selectedProject ? `Daily technical log for ${selectedProject}` : "Select a project to view dedicated technical records"}
+                                            </p>
                                         </div>
                                         <div className="flex flex-col gap-2 w-full md:w-72">
                                             <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Research Field</label>
@@ -214,47 +230,113 @@
                                                     placeholder="Enter T-Code, Program, or Topic..."
                                                     className="w-full bg-slate-900 border border-white/5 rounded-2xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/50 transition-all text-white placeholder:text-gray-700"
                                                     value={searchQuery}
-                                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                                    onChange={(e) => {
+                                                        setSearchQuery(e.target.value);
+                                                        if (e.target.value !== '') setSelectedProject(null);
+                                                    }}
                                                 />
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="space-y-12 pb-20">
-                                        {(window.JOURNAL_DATA || []).filter(entry =>
-                                            searchQuery === '' ||
-                                            entry.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                            entry.project.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                            entry.content.toLowerCase().includes(searchQuery.toLowerCase())
-                                        ).map((entry, idx) => (
-                                            <div key={idx} className="relative pl-12 border-l border-white/5 animate-in slide-in-from-left duration-500" style={{ animationDelay: `${idx * 100}ms` }}>
-                                                <div className="absolute left-[-5px] top-0 w-[10px] h-[10px] rounded-full bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
-                                                <div className="mb-4 flex flex-wrap items-center gap-3">
-                                                    <span className="text-xs font-black text-blue-500 uppercase tracking-widest">{entry.date}</span>
-                                                    <span className="text-gray-700 hidden md:inline">•</span>
-                                                    <span className="bg-emerald-500/10 text-emerald-500 text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-widest border border-emerald-500/20">
-                                                        {entry.project}
-                                                    </span>
-                                                </div>
-                                                <h3 className="text-2xl font-bold text-white mb-6 leading-tight group-hover:text-blue-400 transition-colors">{entry.title}</h3>
-                                                <div className="glass p-8 rounded-3xl border-white/5 bg-slate-900/30 hover:bg-slate-900/50 transition-all">
-                                                    <div className="prose prose-invert max-w-none text-gray-400 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: entry.content }} />
-                                                </div>
-                                            </div>
-                                        ))}
+                                    {!selectedProject && searchQuery === '' ? (
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            {projects.map((proj, idx) => (
+                                                <button
+                                                    key={idx}
+                                                    onClick={() => setSelectedProject(proj.name)}
+                                                    className="glass p-8 rounded-[2rem] border-white/5 bg-slate-900/40 hover:border-blue-500/30 transition-all text-left group"
+                                                >
+                                                    <div className="flex justify-between items-start mb-6">
+                                                        <div className="w-12 h-12 rounded-2xl bg-blue-600/10 flex items-center justify-center border border-blue-500/20 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                                                            <Icon name="briefcase" className="w-6 h-6" />
+                                                        </div>
+                                                        <span className="bg-emerald-500/10 text-emerald-500 text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-widest border border-emerald-500/20">
+                                                            {proj.status}
+                                                        </span>
+                                                    </div>
+                                                    <h3 className="text-xl font-bold text-white mb-2">{proj.name}</h3>
+                                                    <p className="text-xs text-gray-500 font-medium mb-4 uppercase tracking-widest">
+                                                        {proj.role} • {proj.location}
+                                                    </p>
+                                                    <div className="flex gap-2 mb-4">
+                                                        {proj.focus.slice(0, 2).map((f, i) => (
+                                                            <span key={i} className="text-[10px] text-gray-400 bg-white/5 px-2 py-1 rounded">{f}</span>
+                                                        ))}
+                                                    </div>
+                                                    <div className="flex items-center gap-2 text-blue-400 text-xs font-bold mt-4 uppercase tracking-widest group-hover:gap-4 transition-all">
+                                                        View Journal <Icon name="chevron-right" className="w-4 h-4" />
+                                                    </div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        <div className="space-y-4 pb-20">
+                                            {(window.JOURNAL_DATA || []).filter(entry =>
+                                                (selectedProject ? entry.project === selectedProject : true) &&
+                                                (searchQuery === '' ||
+                                                    entry.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                                    entry.project.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                                    entry.content.toLowerCase().includes(searchQuery.toLowerCase()))
+                                            ).map((entry, idx) => {
+                                                const isExpanded = expandedEntry === idx;
+                                                return (
+                                                    <div
+                                                        key={idx}
+                                                        className={`glass rounded-3xl border-white/5 transition-all duration-300 overflow-hidden ${isExpanded ? 'bg-slate-900/60 shadow-2xl' : 'bg-slate-900/30 hover:bg-slate-900/40 cursor-pointer'}`}
+                                                    >
+                                                        <div
+                                                            className="p-6 flex items-center justify-between"
+                                                            onClick={() => setExpandedEntry(isExpanded ? null : idx)}
+                                                        >
+                                                            <div className="flex items-center gap-6">
+                                                                <div className="text-center min-w-[60px]">
+                                                                    <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest">
+                                                                        {entry.date.split(',')[0]}
+                                                                    </p>
+                                                                    {!selectedProject && (
+                                                                        <p className="text-[9px] font-black text-blue-500/60 uppercase tracking-[0.1em] mt-1">
+                                                                            {entry.project.split(' ')[0]}
+                                                                        </p>
+                                                                    )}
+                                                                </div>
+                                                                <h3 className={`text-lg font-bold transition-colors ${isExpanded ? 'text-blue-400' : 'text-gray-200'}`}>
+                                                                    {entry.title}
+                                                                </h3>
+                                                            </div>
+                                                            <Icon
+                                                                name={isExpanded ? "chevron-up" : "chevron-down"}
+                                                                className={`w-5 h-5 text-gray-500 transition-transform ${isExpanded ? 'scale-110 text-blue-500' : ''}`}
+                                                            />
+                                                        </div>
 
-                                        {(window.JOURNAL_DATA || []).filter(entry =>
-                                            searchQuery === '' ||
-                                            entry.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                            entry.project.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                            entry.content.toLowerCase().includes(searchQuery.toLowerCase())
-                                        ).length === 0 && (
-                                                <div className="text-center py-20 bg-slate-900/20 rounded-[2rem] border border-dashed border-white/5">
-                                                    <Icon name="search" className="w-12 h-12 text-gray-800 mx-auto mb-4" />
-                                                    <p className="text-gray-500 font-medium">No technical records found matching your research criteria.</p>
-                                                </div>
-                                            )}
-                                    </div>
+                                                        {isExpanded && (
+                                                            <div className="px-6 pb-8 pt-2 animate-in fade-in zoom-in-95 duration-300">
+                                                                <div className="h-px bg-white/5 mb-6" />
+                                                                <div
+                                                                    className="prose prose-invert max-w-none text-gray-400 text-sm leading-relaxed"
+                                                                    dangerouslySetInnerHTML={{ __html: entry.content }}
+                                                                />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                );
+                                            })}
+
+                                            {(window.JOURNAL_DATA || []).filter(entry =>
+                                                (selectedProject ? entry.project === selectedProject : true) &&
+                                                (searchQuery === '' ||
+                                                    entry.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                                    entry.project.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                                    entry.content.toLowerCase().includes(searchQuery.toLowerCase()))
+                                            ).length === 0 && (
+                                                    <div className="text-center py-20 bg-slate-900/20 rounded-[2rem] border border-dashed border-white/5">
+                                                        <Icon name="search" className="w-12 h-12 text-gray-800 mx-auto mb-4" />
+                                                        <p className="text-gray-500 font-medium">No results found in {selectedProject || 'any project'}.</p>
+                                                    </div>
+                                                )}
+                                        </div>
+                                    )}
                                 </div>
                             )}
 
