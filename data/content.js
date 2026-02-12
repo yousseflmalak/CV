@@ -49,19 +49,19 @@ window.TRAINING_DATA = [
 ];
 
 window.TOOLKIT_DATA = [
-    { tcode: "EDOC_COCKPIT", desc: "The main dashboard for monitoring and submitting electronic documents across all jurisdictions.", icon: "layout", category: "Technical" },
-    { tcode: "/AIF/CONTENT_EXTRACT", desc: "Technical tool for extracting data mapping from the AIF framework.", icon: "file-cog", category: "Technical" },
-    { tcode: "SM30 (V_EDO_SUB_TYPE)", desc: "Maintain eDocument types and assign them to accounting document types.", icon: "settings-2", category: "Technical" },
-    { tcode: "SR_REPORT_ENTITY", desc: "The engine for defining statutory reporting entities and periodicity.", icon: "clipboard-list", category: "Technical" },
-    { tcode: "STRUST", desc: "Trust Manager for managing SSL certificates required for secure BTP communication.", icon: "shield-check", category: "Technical" },
-    { tcode: "S_EDO_CERT_REG", desc: "Specific registration for digital signatures used in e-invoicing.", icon: "pen-tool", category: "Technical" },
+    { tcode: "EDOC_COCKPIT", desc: "The main dashboard for monitoring and submitting electronic documents across all jurisdictions.", icon: "layout", category: "Technical", howTo: "Enter this T-Code to monitor, submit, and clear electronic documents for any mandate (KSeF, ViDA, etc.)." },
+    { tcode: "/AIF/CONTENT_EXTRACT", desc: "Technical tool for extracting data mapping from the AIF framework.", icon: "file-cog", category: "Technical", howTo: "Use this to extract and debug the XML mapping structure when a transmission fails regulatory validation." },
+    { tcode: "SM30 (V_EDO_SUB_TYPE)", desc: "Maintain eDocument types and assign them to accounting document types.", icon: "settings-2", category: "Technical", howTo: "The core configuration link. Use this to ensure an FI invoice automatically triggers a DRC eDocument." },
+    { tcode: "SR_REPORT_ENTITY", desc: "The engine for defining statutory reporting entities and periodicity.", icon: "clipboard-list", category: "Technical", howTo: "Define 'Reporting Entities' for local authorities. Vital for annual SAF-T or VAT returns." },
+    { tcode: "STRUST", desc: "Trust Manager for managing SSL certificates required for secure BTP communication.", icon: "shield-check", category: "Technical", howTo: "Import government security certificates here. Without this, BTP cannot establish a secure link to tax gateways." },
+    { tcode: "S_EDO_CERT_REG", desc: "Specific registration for digital signatures used in e-invoicing.", icon: "pen-tool", category: "Technical", howTo: "Register your digital signature keys here for jurisdictions requiring cryptographically signed XMLs." },
     {
-        tcode: "PROFESSIONAL_CV", desc: "Optimized SAP DRC Architect CV. Ready for high-tier recruitment.", icon: "file-text", category: "Career", type: "CV", links: [
-            { label: "Word Version", path: "brain/980c05d9-1a33-48c2-acd3-8ab111c30700/Youssef_Lmalak_SAP_DRC_CV.doc" },
-            { label: "Markdown Source", path: "brain/980c05d9-1a33-48c2-acd3-8ab111c30700/optimized_cv_drc.md" }
+        tcode: "PROFESSIONAL_CV", desc: "Optimized SAP DRC Architect CV. Positioned for high-tier global recruitment.", icon: "file-text", category: "Career", type: "CV", links: [
+            { label: "Word Version", path: "assets/docs/Youssef_Lmalak_SAP_DRC_CV.doc" },
+            { label: "Markdown Source", path: "assets/docs/Youssef_Lmalak_SAP_DRC_CV.md" }
         ]
     },
-    { tcode: "LINKEDIN_STRATEGY", desc: "Optimized profile overview focusing on BTP, KSeF, and ViDA.", icon: "linkedin", category: "Career", type: "LinkedIn", detail: "Heading: Lead SAP DRC Architect | BTP Integration | KSeF & ViDA Expert | Global E-Invoicing Compliance" }
+    { tcode: "LINKEDIN_STRATEGY", desc: "DRC-Focused profile overview with verified strategy and outreach ready.", icon: "linkedin", category: "Career", type: "LinkedIn", url: "https://www.linkedin.com/in/youssef-l-17174a237/", detail: "Heading: Lead SAP DRC Architect | BTP Integration | KSeF & ViDA Expert | Global E-Invoicing Compliance", summary: "Strategic positioning as a 'Triple-Threat' expert (Functional + Technical + Regulatory)." }
 ];
 
 window.PROJECT_DATA = [
