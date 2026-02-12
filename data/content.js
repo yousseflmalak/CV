@@ -78,6 +78,48 @@ window.PROGRESS_DATA = {
 window.JOURNAL_DATA = [
     {
         date: "Feb 12, 2026",
+        title: "Automated BP Upload: Custom ABAP Report ZFI_UPLOAD_PARTNER",
+        project: "InterParking Belgium",
+        content: `
+            <p>To streamline the onboarding of legal partners for e-invoicing, I used a custom ABAP report to bulk-load data into the DRC partner tables.</p>
+            
+            <h3 class="text-blue-400 font-bold mt-6 mb-2">Technical Objective</h3>
+            <p>Automate the population of <strong>EDOEUBUPA</strong> (Partner Mapping), <strong>EDOEUPARTY</strong> (Party Types), and <strong>EDOEUPARTYT</strong> (Texts) from a simplified CSV structure.</p>
+
+            <h3 class="text-blue-400 font-bold mt-6 mb-2">Key Functionality</h3>
+            <ul class="list-disc ml-6 mb-4 space-y-2 text-sm">
+                <li><strong>Dynamic Parsing</strong>: Auto-detects delimiters (Semicolon, Comma, or Tab).</li>
+                <li><strong>Safety Checks</strong>: Validates if the <code>PARTY_ID_TYPE</code> exists before insertion.</li>
+                <li><strong>ALV Preview</strong>: Uses <code>CL_SALV_TABLE</code> to show a status-coded dashboard (LED colors) before database commit.</li>
+                <li><strong>Update Mode</strong>: Toggle between inserting new records or updating existing ones.</li>
+            </ul>
+
+            <h3 class="text-blue-400 font-bold mt-6 mb-2">Core ABAP Implementation</h3>
+            <pre class="bg-black/40 p-4 rounded-xl text-xs overflow-x-auto border border-white/5 max-h-96">
+REPORT zfi_upload_partner.
+
+* Target Tables: EDOEUBUPA, EDOEUPARTY, EDOEUPARTYT
+
+TYPES: BEGIN OF ty_csv_line,
+         partner_id    TYPE edoc_partner_id,
+         party_id_type TYPE edoc_party_id_type,
+         field3        TYPE char1,
+       END OF ty_csv_line.
+
+" Main logic:
+" 1. GUI_UPLOAD for CSV retrieval
+" 2. SPLIT AT ';' INTO TABLE logic for parsing
+" 3. Cross-check against EDOEUPARTY via SELECT FOR ALL ENTRIES
+" 4. INSERT/UPDATE logic with COMMIT WORK AND WAIT
+            </pre>
+
+            <div class="bg-blue-500/10 p-4 rounded-xl border border-blue-500/20 mt-4">
+                <p class="text-xs text-blue-300"><strong>Note:</strong> This report is crucial during the initial setup of Electronic Document Processing to avoid manual entry for thousands of Business Partners.</p>
+            </div>
+        `
+    },
+    {
+        date: "Feb 12, 2026",
         title: "Extracting Business Partner from eDocument Source Key",
         project: "InterParking Belgium",
         content: `
