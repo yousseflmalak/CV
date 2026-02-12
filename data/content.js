@@ -65,6 +65,14 @@ window.PROJECT_DATA = [
         location: "Brussels / Remote",
         focus: ["eInvoicing", "BTP Integration", "Peppol"],
         lastUpdate: "Feb 2026"
+    },
+    {
+        name: "JYSK Poland",
+        status: "Scoping Phase",
+        role: "DRC Consultant",
+        location: "Poland / Denmark",
+        focus: ["KSeF 2.0", "Mandatory B2B", "Legal Requirement Audit"],
+        lastUpdate: "Feb 12, 2026"
     }
 ];
 
@@ -76,6 +84,30 @@ window.PROGRESS_DATA = {
 };
 
 window.JOURNAL_DATA = [
+    {
+        date: "Feb 12, 2026",
+        title: "JYSK Poland: KSeF 2.0 Requirements & Scoping",
+        project: "JYSK Poland",
+        content: `
+            <p>Conducted initial scoping meeting for the Poland B2B mandate (KSeF 2.0). We focused on categorizing requirements into Must-Have, Nice-to-Have, and Legal Needs.</p>
+            
+            <h3 class="text-blue-400 font-bold mt-6 mb-2">Legal Needs (Must-Have)</h3>
+            <ul class="list-disc ml-6 mb-4 space-y-1">
+                <li>Direct integration with KSeF platform for Structured Invoices.</li>
+                <li>Validation of VAT IDs against the "White List".</li>
+                <li>Archiving for legal holding periods (10 years).</li>
+            </ul>
+
+            <h3 class="text-blue-400 font-bold mt-6 mb-2">Operational Nice-to-Have</h3>
+            <ul class="list-disc ml-6 mb-4 space-y-1">
+                <li>Automated error notification to AP/AR teams via BTP.</li>
+                <li>Dashboard for monitoring rejection codes from the KSeF portal.</li>
+            </ul>
+
+            <h3 class="text-blue-400 font-bold mt-6 mb-2">Technical Tool Used</h3>
+            <p>Analyzed the <strong>EDOC_COCKPIT</strong> for Poland-specific process types and checked <strong>SM30</strong> for <code>EDOC_POLAND_V</code> maintainance views.</p>
+        `
+    },
     {
         date: "Feb 12, 2026",
         title: "Automated BP Upload: Custom ABAP Report ZFI_UPLOAD_PARTNER",
