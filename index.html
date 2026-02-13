@@ -62,7 +62,7 @@
     <div id="root"></div>
 
     <!-- Data Injection -->
-    <script src="./data/content.js?v=20260213_1050"></script>
+    <script src="./data/content.js?v=20260213_1100"></script>
 
     <script type="text/babel">
         const { useState, useEffect } = React;
@@ -70,8 +70,39 @@
         // Move components OUTSIDE App to prevent re-creation on every render
         const Icon = ({ name, className }) => {
             if (!name) return <div className={className}></div>;
-            return <i data-lucide={name} className={className}></i>;
+            try {
+                return <i data-lucide={name} className={className}></i>;
+            } catch (e) {
+                console.error("Icon render error:", e);
+                return <i data-lucide="help-circle" className={className}></i>;
+            }
         };
+
+        class ErrorBoundary extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { hasError: false };
+            }
+            static getDerivedStateFromError(error) { return { hasError: true }; }
+            componentDidCatch(error, errorInfo) { console.error("App Crash:", error, errorInfo); }
+            render() {
+                if (this.state.hasError) {
+                    return (
+                        <div className="h-screen w-screen flex flex-col items-center justify-center bg-slate-950 text-white p-8 text-center">
+                            <h2 className="text-4xl font-black mb-4">Something went wrong.</h2>
+                            <p className="text-gray-400 mb-8 max-w-md">The Knowledge Hub encountered a rendering error. Please try clearing your cache or reloading.</p>
+                            <button
+                                onClick={() => { localStorage.clear(); location.reload(); }}
+                                className="px-8 py-3 bg-blue-600 rounded-xl font-bold hover:bg-blue-500 transition-all"
+                            >
+                                Reset Hub State
+                            </button>
+                        </div>
+                    );
+                }
+                return this.props.children;
+            }
+        }
 
         const SidebarItem = ({ id, label, icon, activeTab, onClick }) => (
             <button
@@ -87,8 +118,17 @@
             const [activeTab, setActiveTab] = useState('training');
             const [activeLesson, setActiveLesson] = useState(0);
             const [completedLessons, setCompletedLessons] = useState(() => {
-                const saved = localStorage.getItem('completedLessons');
-                return saved ? JSON.parse(saved) : [];
+                try {
+                    const saved = localStorage.getItem('completedLessons');
+                    if (!saved) return [];
+                    const parsed = JSON.parse(saved);
+                    // Basic validation: ensure it's an array and contains numbers
+                    if (!Array.isArray(parsed)) return [];
+                    return parsed.filter(i => typeof i === 'number');
+                } catch (e) {
+                    console.error("State validation error:", e);
+                    return [];
+                }
             });
             const [searchQuery, setSearchQuery] = useState('');
             const [selectedProject, setSelectedProject] = useState(null);
@@ -616,7 +656,11 @@
         };
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        root.render(
+            <ErrorBoundary>
+                <App />
+            </ErrorBoundary>
+        );
     </script>
 </body>
 
