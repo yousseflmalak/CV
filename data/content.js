@@ -1,71 +1,187 @@
 window.TRAINING_DATA = [
     {
-        title: "Session 1: The Unified DRC Architecture",
+        title: "Module 1: Foundations of SAP DRC & Belgian Legal Context",
         content: `
-            <p>Welcome to Lesson 1. As a Senior Architect, you must understand the four layers of the DRC "Stack". SAP DRC is the unification of the <strong>eDocument Framework</strong> and <strong>Advanced Compliance Reporting (ACR)</strong> into a single, cohesive engine.</p>
-            
-            <h3 class="text-xl font-bold text-blue-400 mt-6 mb-3">The Architectural Flow</h3>
-            <ul class="list-disc ml-6 space-y-2">
-                <li><strong>Layer 1: Functional Foundation (eDocument)</strong> - Triggered by FI/SD postings. Manage via <code>EDOC_COCKPIT</code>.</li>
-                <li><strong>Layer 2: Logic Engine (SAP AIF)</strong> - Handles XML schema validations and business mapping errors.</li>
-                <li><strong>Layer 3: Connectivity (SAP BTP)</strong> - The "Bridge" to government APIs via Cloud Integration (CPI). Handles SSL and OAuth2.</li>
-                <li><strong>Layer 4: Government Clearing House</strong> - The final destination (KSeF, SdI, etc.) which sends back a "Reject" or "Success" status.</li>
-            </ul>
-
-            <h3 class="text-xl font-bold text-blue-400 mt-6 mb-3">Critical Transaction Codes</h3>
-            <div class="bg-slate-800 p-4 rounded-xl font-mono text-sm border border-white/5">
-                <span class="text-blue-400">EDOC_COCKPIT</span> - Manage Electronic Documents<br/>
-                <span class="text-blue-400">SR_REPORT_ENTITY</span> - Configure Reporting Entities<br/>
-                <span class="text-blue-400">/AIF/ERR</span> - Monitor Integration Errors
+            <div class="space-y-6">
+                <p class="text-lg">Welcome to the <strong>Belgian DRC Masterclass</strong>. This module covers the core architectural pillars and the regulatory landscape for Belgium.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-blue-600/10 p-4 rounded-xl border border-blue-500/20">
+                        <h4 class="font-bold text-blue-400 mb-2">Legal Mandates</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• Peppol for B2G (Live since 2017)</li>
+                            <li>• Mandatory B2B e-Invoicing (Upcoming)</li>
+                            <li>• Periodic Intervat Declarations</li>
+                        </ul>
+                    </div>
+                    <div class="bg-indigo-600/10 p-4 rounded-xl border border-indigo-500/20">
+                        <h4 class="font-bold text-indigo-400 mb-2">System Stack</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• SAP S/4HANA Finance/SD</li>
+                            <li>• SAP BTP Integration Suite</li>
+                            <li>• SAP Peppol Exchange Service</li>
+                        </ul>
+                    </div>
+                </div>
+                <h4 class="text-xl font-bold text-white mt-8">Architecture Overview</h4>
+                <p class="text-sm">The solution relies on the <strong>eDocument Framework</strong>. Every business transaction (Invoice/Order) triggers an entry in the <code>EDOCUMENT</code> table, which acts as the lifecycle manager for the XML transmission.</p>
             </div>
         `
     },
     {
-        title: "Session 2: eDocument Framework Mastery",
+        title: "Module 2: Master Data & Baseline Configuration",
         content: `
-            <p>In this session, we focus on the core configuration within the SAP backend. This determines how documents are converted into electronic formats.</p>
-            
-            <h3 class="text-xl font-bold text-blue-400 mt-6 mb-3">Master Data for DRC</h3>
-            <p>Most transmission errors are caused by poor master data. Ensure the following are maintained correctly for the target country:</p>
-            <ul class="list-disc ml-6 space-y-2">
-                <li>VAT Registration Number (Business Partner)</li>
-                <li>Tax Categorization (Material Master)</li>
-                <li>ISO Codes for Country and Currency</li>
-            </ul>
-
-            <h3 class="text-xl font-bold text-blue-400 mt-6 mb-3">The "Digital Loop" Lifecycle</h3>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="bg-slate-800/50 p-4 rounded-lg border border-white/5">
-                    <h4 class="font-bold mb-2">1. Creation</h4>
-                    <p class="text-sm">Invoice posting creates an entry in the eDocument table (EDocument).</p>
-                </div>
-                <div class="bg-slate-800/50 p-4 rounded-lg border border-white/5">
-                    <h4 class="font-bold mb-2">2. Submission</h4>
-                    <p class="text-sm">Manual or automatic trigger to BTP Integration Suite.</p>
+            <div class="space-y-6">
+                <p>Before transactions can flow, the foundation must be solid. This module focuses on the critical configuration steps (SSCUI/SPRO).</p>
+                <table class="w-full text-left text-sm border-collapse">
+                    <thead>
+                        <tr class="border-b border-white/10 text-gray-400">
+                            <th class="py-2">Requirement</th>
+                            <th class="py-2">Technical Key</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-300">
+                        <tr class="border-b border-white/5">
+                            <td class="py-3">Company Code Activation</td>
+                            <td class="py-3"><code>EDOCOMPANYV</code></td>
+                        </tr>
+                        <tr class="border-b border-white/5">
+                            <td class="py-3">Business Partner GLN</td>
+                            <td class="py-3">Field: <code>EAN11</code></td>
+                        </tr>
+                        <tr class="border-b border-white/5">
+                            <td class="py-3">Tax Box Grouping</td>
+                            <td class="py-3"><code>V_T007L</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="bg-yellow-500/10 p-4 rounded-xl border border-yellow-500/20 mt-4">
+                    <p class="text-xs text-yellow-500 font-bold uppercase mb-2">Architect Tip</p>
+                    <p class="text-sm italic">"In Belgium, the VAT number must include the ISO code (BE) and 10 digits. Missing this in BP master data is the #1 cause of Peppol rejection."</p>
                 </div>
             </div>
         `
     },
     {
-        title: "Official SAP Documentation: DRC for Belgium",
+        title: "Module 3: Electronic Customer Invoices (Outbound)",
         content: `
-            <p>Access the official SAP Help Portal for Electronic Customer Invoices in Belgium. This is the source of truth for configuration and legal requirements.</p>
-            <div class="mt-6">
-                <a 
-                    href="https://help.sap.com/docs/SAP_S4HANA_ON-PREMISE/5127da8a114f4f3eb134546b9f1722d0/331b8a2ede6649cc8e043127491dd770.html?locale=en-US" 
-                    target="_blank"
-                    class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 rounded-xl text-white font-bold transition-all shadow-lg shadow-blue-500/20"
-                >
-                    Open Official Doc <i data-lucide="external-link" class="w-4 h-4"></i>
-                </a>
+            <div class="space-y-6">
+                <p>Mastering the outbound flow from Billing (SD) and Finance (FI) to the Peppol network.</p>
+                <div class="space-y-4">
+                    <div class="bg-slate-800/50 p-4 rounded-lg border border-white/5">
+                        <h4 class="font-bold text-blue-400">1. Generation (VF01/FB70)</h4>
+                        <p class="text-sm">Posting creates the source document. eDocument is auto-created via AIF mapping.</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-lg border border-white/5">
+                        <h4 class="font-bold text-blue-400">2. Cockpit Analysis (EDOC_COCKPIT)</h4>
+                        <p class="text-sm">Monitor status. If 'Error in XML', use AIF logs to debug UBL 2.1 syntax.</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-lg border border-white/5">
+                        <h4 class="font-bold text-blue-400">3. BTP Transmission</h4>
+                        <p class="text-sm">The BTP Integration Suite handles the secure handshake with the government access point.</p>
+                    </div>
+                </div>
             </div>
-            <h3 class="text-xl font-bold text-blue-400 mt-8 mb-3">Key Coverage</h3>
-            <ul class="list-disc ml-6 space-y-2">
-                <li>End-to-end lifecycle of electronic invoices (B2B/B2G).</li>
-                <li>Setup procedures including Peppol network integration.</li>
-                <li>Detailed guidance on eDocument Cockpit operations.</li>
-                <li>Legal compliance specifics for the Belgian mandate.</li>
-            </ul>
+        `
+    },
+    {
+        title: "Module 4: Electronic Supplier Invoices (Inbound)",
+        content: `
+            <div class="space-y-6">
+                <p>Automation of the Accounts Payable (AP) process via Peppol Inbound.</p>
+                <ul class="list-disc ml-6 space-y-3">
+                    <li><strong>Push Mechanism</strong>: Peppol service pushes XML to S/4HANA BTP.</li>
+                    <li><strong>Inbound Specialist App</strong>: Manage incoming files before they hit the ledger.</li>
+                    <li><strong>Automated Posting</strong>: Link XML fields (Buyer/Seller Reference) to internal Purchase Orders.</li>
+                </ul>
+                <div class="p-4 bg-emerald-500/10 rounded-xl border border-emerald-500/20">
+                    <p class="text-sm font-bold text-emerald-400">Efficiency Gain:</p>
+                    <p class="text-xs">Reduces manual entry time by ~85% for Belgian B2B transactions.</p>
+                </div>
+            </div>
+        `
+    },
+    {
+        title: "Module 5: Statutory Reporting I - VAT Return & Intervat",
+        content: `
+            <div class="space-y-6">
+                <p>Belgium requires precise VAT reporting through the <strong>Run Compliance Reports</strong> framework.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 border border-white/5 rounded-xl bg-slate-900">
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Report Category</h4>
+                        <p class="text-sm font-bold">BE_VAT_DCL (Periodic VAT)</p>
+                    </div>
+                    <div class="p-4 border border-white/5 rounded-xl bg-slate-900">
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">T-Code</h4>
+                        <p class="text-sm font-bold">START_REPORT_ENGINE</p>
+                    </div>
+                </div>
+                <h4 class="font-bold text-white mt-4">Key Steps:</h4>
+                <ol class="list-decimal ml-6 text-sm space-y-2 text-gray-400">
+                    <li>Initialize report for the specific company code and period.</li>
+                    <li>Run 'Data Collection' to pull GL balances into VAT boxes.</li>
+                    <li>Preview and 'Generate' the XML for Intervat submission.</li>
+                    <li>Download the signed XML for official upload.</li>
+                </ol>
+            </div>
+        `
+    },
+    {
+        title: "Module 6: Statutory Reporting II - Client Listing & EC Sales List",
+        content: `
+            <div class="space-y-6">
+                <p>Managing the Annual Sales Listing (Client Listing) and the monthly EC Sales List (Intracommunity).</p>
+                <div class="bg-blue-600/5 p-6 rounded-2xl border border-blue-500/10">
+                    <h5 class="font-bold text-blue-400 mb-2">Annual Sales Listing (Client Listing)</h5>
+                    <p class="text-sm leading-relaxed">Required every March. Focuses on domestic B2B customers with turnover > €250. DRC automates the extraction and Intervat XML generation.</p>
+                </div>
+                <div class="bg-indigo-600/5 p-6 rounded-2xl border border-indigo-500/10">
+                    <h5 class="font-bold text-indigo-400 mb-2">EC Sales List</h5>
+                    <p class="text-sm leading-relaxed">Reporting Goods (Box 46) and Services (Box 44) supplied to other EU member states. Critical for VIES validation.</p>
+                </div>
+            </div>
+        `
+    },
+    {
+        title: "Module 7: Electronic Procurement (Orders & Incoming Orders)",
+        content: `
+            <div class="space-y-6">
+                <p>Extending DRC beyond invoicing into the <strong>Procure-to-Pay</strong> cycle.</p>
+                <div class="flex gap-4">
+                    <div class="flex-1 p-4 bg-slate-800/30 rounded-xl border border-white/5">
+                        <h4 class="text-xs font-black uppercase text-gray-500 mb-2">Outbound Orders</h4>
+                        <p class="text-xs text-gray-300">ME21N creates PO -> EDOC auto-creation -> Peppol transmission to Supplier.</p>
+                    </div>
+                    <div class="flex-1 p-4 bg-slate-800/30 rounded-xl border border-white/5">
+                        <h4 class="text-xs font-black uppercase text-gray-500 mb-2">Inbound Orders</h4>
+                        <p class="text-xs text-gray-300">Supplier sends Order -> BTP Integration -> Auto-creation of Sales Order in S/4HANA.</p>
+                    </div>
+                </div>
+                <div class="mt-4 p-4 border border-blue-500/20 bg-blue-500/5 rounded-xl">
+                    <p class="text-xs italic text-blue-400">"This is the 'Digital Link' nirvana. No data entry, just electronic validation of the entire supply chain."</p>
+                </div>
+            </div>
+        `
+    },
+    {
+        title: "Module 8: Advanced Scenarios & Troubleshooting",
+        content: `
+            <div class="space-y-6">
+                <h4 class="text-xl font-bold text-white mb-4">Handling the Complex Stuff</h4>
+                <div class="space-y-4">
+                    <div class="p-4 border-l-4 border-red-500 bg-red-500/5 rounded-r-xl">
+                        <h5 class="font-bold text-sm">VAT Units</h5>
+                        <p class="text-xs text-gray-400 mt-1">Combining multiple Belgian company codes into a single Intervat declaration. DRC supports 'Group Entities' natively.</p>
+                    </div>
+                    <div class="p-4 border-l-4 border-yellow-500 bg-yellow-500/5 rounded-r-xl">
+                        <h5 class="font-bold text-sm">Peppol Rejections</h5>
+                        <p class="text-xs text-gray-400 mt-1">If the receiver's access point rejects the XML, verify the GLN and the Schematron validation rules (SCHE).</p>
+                    </div>
+                    <div class="p-4 border-l-4 border-blue-500 bg-blue-500/5 rounded-r-xl">
+                        <h5 class="font-bold text-sm">BTP Certificate Renewal</h5>
+                        <p class="text-xs text-gray-400 mt-1">Manage <code>STRUST</code> and BTP keystores to avoid SSL handshake failures during government transmission.</p>
+                    </div>
+                </div>
+            </div>
         `
     }
 ];
