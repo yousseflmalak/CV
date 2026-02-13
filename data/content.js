@@ -301,7 +301,7 @@ window.TOOLKIT_DATA = [
     { tcode: "STRUST", desc: "Trust Manager for managing SSL certificates required for secure BTP communication.", icon: "shield-check", category: "Technical", howTo: "Import government security certificates here. Without this, BTP cannot establish a secure link to tax gateways." },
     { tcode: "S_EDO_CERT_REG", desc: "Specific registration for digital signatures used in e-invoicing.", icon: "pen-tool", category: "Technical", howTo: "Register your digital signature keys here for jurisdictions requiring cryptographically signed XMLs." },
     {
-        tcode: "PROFESSIONAL_CV", desc: "Optimized SAP DRC Architect CV. Positioned for high-tier global recruitment.", icon: "file-text", category: "Career", type: "CV", links: [
+        tcode: "PROFESSIONAL_CV", desc: "Expert SAP DRC Architect CV (25+ yrs). Highlighting global leadership in Europe, Middle East, and UK mandates.", icon: "file-text", category: "Career", type: "CV", links: [
             { label: "Word Version", path: "assets/docs/Youssef_Lmalak_SAP_DRC_CV.doc" },
             { label: "Markdown Source", path: "assets/docs/Youssef_Lmalak_SAP_DRC_CV.md" }
         ]

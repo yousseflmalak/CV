@@ -50,4 +50,6 @@ Senior SAP Consultant with 25+ years of experience across the full SAP lifecycle
 *   **Technical Skills:** Advanced ABAP, IDOC, Smartforms, BAPI/BAdI.
 *   **Languages:** English (Fluent), French (Fluent), Arabic (Native).
 
+---
+
 *(Full career history since 1998 available upon request)*
