@@ -45,6 +45,28 @@ window.TRAINING_DATA = [
                 </div>
             </div>
         `
+    },
+    {
+        title: "Official SAP Documentation: DRC for Belgium",
+        content: `
+            <p>Access the official SAP Help Portal for Electronic Customer Invoices in Belgium. This is the source of truth for configuration and legal requirements.</p>
+            <div class="mt-6">
+                <a 
+                    href="https://help.sap.com/docs/SAP_S4HANA_ON-PREMISE/5127da8a114f4f3eb134546b9f1722d0/331b8a2ede6649cc8e043127491dd770.html?locale=en-US" 
+                    target="_blank"
+                    class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 rounded-xl text-white font-bold transition-all shadow-lg shadow-blue-500/20"
+                >
+                    Open Official Doc <i data-lucide="external-link" class="w-4 h-4"></i>
+                </a>
+            </div>
+            <h3 class="text-xl font-bold text-blue-400 mt-8 mb-3">Key Coverage</h3>
+            <ul class="list-disc ml-6 space-y-2">
+                <li>End-to-end lifecycle of electronic invoices (B2B/B2G).</li>
+                <li>Setup procedures including Peppol network integration.</li>
+                <li>Detailed guidance on eDocument Cockpit operations.</li>
+                <li>Legal compliance specifics for the Belgian mandate.</li>
+            </ul>
+        `
     }
 ];
 
@@ -70,6 +92,7 @@ window.PROJECT_DATA = [
         status: "Post Go-Live",
         role: "Lead DRC Architect",
         location: "Brussels / Remote",
+        logo: "https://images.ctfassets.net/52rzd94ogzb9/6lKOSMqU469gluxox6Dpfd/a53b9e030405bafbddb7e774fd3170dd/Mainlogo.svg",
         focus: ["eInvoicing", "BTP Integration", "Peppol"],
         lastUpdate: "Feb 2026"
     },
@@ -78,6 +101,7 @@ window.PROJECT_DATA = [
         status: "Scoping Phase",
         role: "DRC Consultant",
         location: "Poland / Denmark",
+        logo: "https://jysk.pl/themes/custom/jysk_bootstrap/icons/static/jysk-logo.svg",
         focus: ["KSeF 2.0", "Mandatory B2B", "Legal Requirement Audit"],
         lastUpdate: "Feb 12, 2026"
     }
