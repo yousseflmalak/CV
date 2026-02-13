@@ -62,7 +62,7 @@
     <div id="root"></div>
 
     <!-- Data Injection -->
-    <script src="./data/content.js?v=20260213_1015"></script>
+    <script src="./data/content.js?v=20260213_1050"></script>
 
     <script type="text/babel">
         const { useState, useEffect } = React;
@@ -117,10 +117,7 @@
             const projects = window.PROJECT_DATA || [];
             const trainingData = window.TRAINING_DATA || [{ title: 'Loading...', content: '' }];
             const trainingProgress = Math.round((completedLessons.length / trainingData.length) * 100);
-            const progress = {
-                ...(window.PROGRESS_DATA || {}),
-                training: trainingProgress
-            };
+            const progress = Object.assign({}, window.PROGRESS_DATA || {}, { training: trainingProgress });
             const toolkitData = window.TOOLKIT_DATA || [];
 
             const handleTabChange = (tab) => {
